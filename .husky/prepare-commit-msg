@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-[ $2 == "template" ] && exec < /dev/tty && node_modules/.bin/cz --hook || true
+if [ $2 == "template" ]; then exec < /dev/tty && node_modules/.bin/cz --hook || true; fi

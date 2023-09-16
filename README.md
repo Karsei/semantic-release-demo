@@ -35,7 +35,38 @@ GitHub Actions 기준으로 작성되었으며, `semantic-release` 에서 지원
 
 ### 선택
 
-1. `.releaserc` 파일을 작성한다. CHANGELOG 파일을 작성하게 한다거나 특정 커밋 메시지일 경우 어떻게 작동되게 할 것인지 여러가지로 지정해줄 수 있다. 
+#### `.releaserc` 파일 작성
+
+CHANGELOG 파일을 작성하게 한다거나 특정 커밋 메시지일 경우 어떻게 작동되게 할 것인지 여러가지로 지정해줄 수 있다.
+
+##### 템플릿1.
+
+* 커밋 메시지에 따라 버전 관리 + package.json 버전 변경 + release 배포
+
+```json
+{
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    [
+      "@semantic-release/npm",
+      {
+        "npmPublish": false
+      }
+    ],
+    "@semantic-release/github",
+    [
+      "@semantic-release/git",
+      {
+        "assets": "package.json",
+        "message": "chore(release): ${nextRelease.version} [skip ci]\\n\\n${nextRelease.notes}"
+      }
+    ]
+  ]
+}
+```
+
+
 
 # References
 

@@ -73,3 +73,4 @@ CHANGELOG 파일을 작성하게 한다거나 특정 커밋 메시지일 경우 
 * https://github.com/semantic-release/semantic-release/blob/master/docs/usage/getting-started.md
 * https://semantic-release.gitbook.io/semantic-release/usage/installation
 * https://semantic-release.gitbook.io/semantic-release/usage/plugins
+* https://velog.io/@young_pallete/semantic-release

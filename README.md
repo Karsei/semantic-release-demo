@@ -343,7 +343,7 @@ $ npm install commitizen cz-conventional-changelog -D
 2. git hook 추가
 
 ```shell
-$ npx husky add .husky/prepare-commit-msg '[ $2 == "template" ] && exec < /dev/tty && node_modules/.bin/cz --hook || true'
+$ npx husky add .husky/prepare-commit-msg '[ -z "${2-}" ] && exec < /dev/tty && node_modules/.bin/cz --hook || true'
 ```
 
 또는 `.husky/prepare-commit-msg` 파일로 아래 내용을 저장한다.
@@ -352,7 +352,7 @@ $ npx husky add .husky/prepare-commit-msg '[ $2 == "template" ] && exec < /dev/t
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-[ $2 == "template" ] && exec < /dev/tty && node_modules/.bin/cz --hook || true
+[ -z "${2-}" ] && exec < /dev/tty && node_modules/.bin/cz --hook || true
 ```
 
 3. `package.json` 에 아래 내용 추가
@@ -366,7 +366,6 @@ $ npx husky add .husky/prepare-commit-msg '[ $2 == "template" ] && exec < /dev/t
   }
 }
 ```
-
 
 # References
 

@@ -4,25 +4,25 @@
     [
       "@semantic-release/release-notes-generator",
       {
-        preset: "conventionalcommits",
-        presetConfig: {
-          types: [
-            { type: "feat", section: "✨ Features", hidden: false },
-            { type: "fix", section: "🐛 Bug Fixes", hidden: false },
-            { type: "perf", section: "🌈 Performance", hidden: false },
-            { type: "refactor", section: "♻️ Refactor", hidden: false },
-            { type: "docs", section: "📝 Docs", hidden: false },
-            { type: "style", section: "💄 Styles", hidden: false },
-            { type: "revert", section: "🕐 Reverts", hidden: false },
-            { type: "ci", section: "💫 CI/CD", hidden: false },
+        "preset": "conventionalcommits",
+        "presetConfig": {
+          "types": [
+            { "type": "feat", "section": "✨ Features", "hidden": false },
+            { "type": "fix", "section": "🐛 Bug Fixes", "hidden": false },
+            { "type": "perf", "section": "🌈 Performance", "hidden": false },
+            { "type": "refactor", "section": "♻️ Refactor", "hidden": false },
+            { "type": "docs", "section": "📝 Docs", "hidden": false },
+            { "type": "style", "section": "💄 Styles", "hidden": false },
+            { "type": "revert", "section": "🕐 Reverts", "hidden": false },
+            { "type": "ci", "section": "💫 CI/CD", "hidden": false },
 
-            { type: "test", section: "✅ Tests", hidden: true },
-            { type: "chore", section: "📦 Chores", hidden: true },
-            { type: "move", section: "🚚 Move Files", hidden: true },
-            { type: "remove", section: "🔥 Remove Files", hidden: true },
-          ],
-        },
-      },
+            { "type": "test", "section": "✅ Tests", "hidden": true },
+            { "type": "chore", "section": "📦 Chores", "hidden": true },
+            { "type": "move", "section": "🚚 Move Files", "hidden": true },
+            { "type": "remove", "section": "🔥 Remove Files", "hidden": true }
+          ]
+        }
+      }
     ],
     [
       "@semantic-release/changelog",

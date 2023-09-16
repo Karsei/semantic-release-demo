@@ -165,9 +165,77 @@ CHANGELOG 파일을 작성하게 한다거나 특정 커밋 메시지일 경우 
 }
 ```
 
+#### 템플릿3
+
+* 커밋 메시지에 따라 버전 관리
+* package.json 버전 동기화
+* release 상시 배포
+* CHANGELOG.md 파일 작성 & 템플릿 수정
+
+> **Note**
+> `@semantic-release/release-notes-generator` 에서 `conventionalcommits` 을 이용할 경우 반드시 `presetConfig` 가 설정되어 있어야 한다.
+
+> **의존성**
+> ```shell
+> $ npm install -D semantic-release @semantic-release/git @semantic-release/changelog conventional-changelog-conventionalcommits
+> ```
+
+```json
+{
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    [
+      "@semantic-release/release-notes-generator",
+      {
+        "preset": "conventionalcommits",
+        "presetConfig": {
+          "types": [
+            { "type": "feat", "section": "✨ Features", "hidden": false },
+            { "type": "fix", "section": "🐛 Bug Fixes", "hidden": false },
+            { "type": "perf", "section": "🌈 Performance", "hidden": false },
+            { "type": "refactor", "section": "♻️ Refactor", "hidden": false },
+            { "type": "docs", "section": "📝 Docs", "hidden": false },
+            { "type": "style", "section": "💄 Styles", "hidden": false },
+            { "type": "revert", "section": "🕐 Reverts", "hidden": false },
+            { "type": "ci", "section": "💫 CI/CD", "hidden": false },
+
+            { "type": "test", "section": "✅ Tests", "hidden": true },
+            { "type": "chore", "section": "📦 Chores", "hidden": true },
+            { "type": "move", "section": "🚚 Move Files", "hidden": true },
+            { "type": "remove", "section": "🔥 Remove Files", "hidden": true }
+          ]
+        }
+      }
+    ],
+    [
+      "@semantic-release/changelog",
+      {
+        "changelogFile": "CHANGELOG.md",
+        "changelogTitle": "# 🚦 CHANGELOG"
+      }
+    ],
+    [
+      "@semantic-release/npm",
+      {
+        "npmPublish": false
+      }
+    ],
+    "@semantic-release/github",
+    [
+      "@semantic-release/git",
+      {
+        "assets": ["package.json", "CHANGELOG.md"],
+        "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
+      }
+    ]
+  ]
+}
+```
+
 # References
 
 * https://github.com/semantic-release/semantic-release/blob/master/docs/usage/getting-started.md
 * https://semantic-release.gitbook.io/semantic-release/usage/installation
 * https://semantic-release.gitbook.io/semantic-release/usage/plugins
+* https://github.com/semantic-release/release-notes-generator
 * https://velog.io/@young_pallete/semantic-release

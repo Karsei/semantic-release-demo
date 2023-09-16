@@ -4,6 +4,8 @@ GitHub Actions 기준으로 작성되었으며, `semantic-release` 에서 지원
 
 ## 사용법
 
+### 기본
+
 1. 해당 예제에서는 npm 배포를 이용하지 않을 것이므로 `package.json` 에서 아래와 같이 `private` 속성의 값을 `true` 로 설정한다.
     ```json
     {
@@ -31,8 +33,12 @@ GitHub Actions 기준으로 작성되었으며, `semantic-release` 에서 지원
     >       run: npx semantic-release@18
     > ```
 
+### 선택
+
+1. `.releaserc` 파일을 작성한다. CHANGELOG 파일을 작성하게 한다거나 특정 커밋 메시지일 경우 어떻게 작동되게 할 것인지 여러가지로 지정해줄 수 있다. 
+
 # References
 
 * https://github.com/semantic-release/semantic-release/blob/master/docs/usage/getting-started.md
 * https://semantic-release.gitbook.io/semantic-release/usage/installation
-
+* https://semantic-release.gitbook.io/semantic-release/usage/plugins

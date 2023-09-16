@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# exec < /dev/tty && node_modules/.bin/cz --hook || true
+# 커밋 메세지를 따로 주지 않을 경우 아래와 같이 해야 제대로 작동된다. - https://github.com/commitizen/cz-cli/issues/844#issuecomment-1035862033
+[ -z "${2-}" ] && exec < /dev/tty && node_modules/.bin/cz --hook || true

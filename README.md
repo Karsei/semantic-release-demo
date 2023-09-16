@@ -31,6 +31,7 @@ $ npx semantic-release@18
 }
 ```
 
+
 ### 3. 개인 Token 발급
 
 자동화 과정에서 파일을 커밋하거나 release 배포를 하기 때문에 반드시 필요하다. `push` 권한이 필요하므로 scope 는 `repo` 에 체크해서 만들어주자.
@@ -256,6 +257,113 @@ jobs:
       }
     ]
   ]
+}
+```
+
+## commitlint (feat. Husky), commitizen (cz-cli)
+
+* [commitlint](https://github.com/conventional-changelog/commitlint) - 커밋 메세지 작성 시 [Conventional Commit Format](https://conventionalcommits.org/) 를 준수하도록 메세지를 체크해주는 도구
+  * **`git commit` 시 위 규칙의 준수를 강제하도록 Husky 가 주로 이용된다.** GitHub 저장소로 가보면 Husky 설치부터 commitlint 설치까지 전부 자세하게 설명되어 있다.
+  * Windows, Linux 둘 다 상관없이 잘 작동되므로 걱정하지 말자
+* [commitizen](https://github.com/commitizen/cz-cli) - 커밋 메세지 작성 시 [Conventional Commit Format](https://conventionalcommits.org/) 를 준수할 수 있도록 작성을 도와주는 도구
+
+### commitlint 설치
+
+1. commitlint cli 및 conventional 설정 설치
+
+```shell
+$ npm install --save-dev @commitlint/config-conventional @commitlint/cli
+```
+
+2. conventional 설정을 이용하기 위해 commitlint 설정
+
+```shell
+# conventional 설정을 이용하기 위해 commitlint 설정
+# 운영체제 환경에 따라 쌍따옴표까지 작성되는 경우가 있는데 쌍따옴표가 들어가지 않도록 다시 확인할 것 
+$ echo "module.exports = {extends: ['@commitlint/config-conventional']}" > commitlint.config.js
+```
+
+또는 저장소 루트 디렉토리에 `commitlint.config.js` 파일로 아래 내용을 저장한다. 
+
+```javascript
+module.exports = {
+    extends: ['@commitlint/config-conventional'],
+};
+```
+
+3. husky 설치
+
+```shell
+# husky 의존성 추가
+$ npm install husky --save-dev
+
+# husky 설치
+$ npx husky install
+```
+
+최종적으로 저장소 루트 디렉토리에 `.husky` 폴더가 만들어졌는지 확인한다.
+
+4. git hook 추가
+
+```shell
+$ npx husky add .husky/commit-msg 'npm run commitlint ${1}'
+```
+
+또는 `.husky/commit-msg` 파일로 아래 내용을 저장한다.
+
+```shell
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+node_modules/.bin/commitlint --edit $1
+```
+
+5. 작동되는지 확인
+
+```shell
+$ git commit -m "test"
+⧗   input: test
+✖   subject may not be empty [subject-empty]
+✖   type may not be empty [type-empty]
+
+✖   found 2 problems, 0 warnings
+ⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint
+
+husky - commit-msg hook exited with code 1 (error)
+```
+
+### commitizen 설치
+
+1. commitizen 설치
+
+```shell
+$ npm install commitizen cz-conventional-changelog -D
+```
+
+2. git hook 추가
+
+```shell
+$ npx husky add .husky/prepare-commit-msg '[ -z "${2-}" ] && exec < /dev/tty && node_modules/.bin/cz --hook || true'
+```
+
+또는 `.husky/prepare-commit-msg` 파일로 아래 내용을 저장한다.
+
+```shell
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+[ -z "${2-}" ] && exec < /dev/tty && node_modules/.bin/cz --hook || true
+```
+
+3. `package.json` 에 아래 내용 추가
+
+```json
+{
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
 ```
 

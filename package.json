@@ -21,6 +21,11 @@
     "url": "https://github.com/Karsei/semantic-release-demo/issues"
   },
   "homepage": "https://github.com/Karsei/semantic-release-demo#readme",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
   "dependencies": {
     "conventional-changelog-conventionalcommits": "^7.0.2",
     "ts-node": "^10.9.1",
@@ -28,8 +33,13 @@
     "typescript": "^5.2.2"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.7.1",
+    "@commitlint/config-conventional": "^17.7.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^8.0.3",
     "semantic-release": "^21.1.2"
   }
 }

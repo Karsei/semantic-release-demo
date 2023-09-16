@@ -2,6 +2,7 @@
 
 * GitHub Actions 기준으로 작성
 * `semantic-release` 에서 지원하는 npm 배포 기능은 생략
+* NodeJS 어플리케이션 기준으로 작성되었으나 사실상 상관없음. 주로 형상 관리를 자동화하는 내용 위주이기 때문에 Java, Go, Python 등 아무거나 가능
 
 # 사용법
 
@@ -41,7 +42,7 @@ $ npx semantic-release@18
 
 저장소 CI Secret 에 해당 토큰을 `GH_TOKEN` 이라는 이름으로 저장한다.
 
-Git 서비스마다 다른데 [여기](https://github.com/semantic-release/semantic-release/blob/master/docs/usage/ci-configuration.md#push-access-to-the-remote-repository)를 참고하자. 참고로 GitHub 는 Secret 이름 앞에 `GITHUB_` 가 들어가는 것을 금지하고 있다.
+Git 서비스마다 다른데 [여기](https://github.com/semantic-release/semantic-release/blob/master/docs/usage/ci-configuration.md#push-access-to-the-remote-repository)를 참고하자. 참고로 GitHub 는 Secret 이름 앞에 `GITHUB_` 가 들어가도록 하는 것을 금지하고 있다.
 
 ### 5. CI 스크립트 작성
 
@@ -81,15 +82,41 @@ jobs:
 ```
 
 > **Note**
-> GitHub Actions 의 경우 CI 스크립트를 작성할 때 step 의 `permissions` 에 `content` 를 `write` 로 해주어야 토큰 접근이 가능하다.
+> GitHub Actions 의 경우 CI 스크립트를 작성할 때 step 의 `permissions` 에 `contents` 를 `write` 로 해주어야 토큰 접근이 가능하다.
 
-## 선택
+## `.releaserc` 파일 작성
 
-### `.releaserc` 파일 작성
+`semantic-release` 설정을 담당하는데 아래와 같은 요소들을 설정해줄 수 있다.
 
-CHANGELOG 파일을 작성하게 한다거나 특정 커밋 메시지일 경우 어떻게 작동되게 할 것인지 여러가지로 지정해줄 수 있다.
+* Git 저장소(URL, 배포할 브랜치, 태그 포맷)
+* 사용할 플러그인 및 옵션 설정
+* 실행 모드(디버그, dry run, local)
 
-#### 템플릿1
+[문서](https://semantic-release.gitbook.io/semantic-release/usage/configuration)에 따르면 `.releaserc`, `.releaserc.yaml` 등의 파일로 관리하는 방법, `package.json` 내의 `release` 키로 관리하는 방법, 명령어 인자로 넘겨주는 방법으로 3가지 방식을 지원하고 있다.
+
+### 플러그인
+
+제공하는 플러그인 목록은 [여기](https://github.com/semantic-release/semantic-release/blob/master/docs/extending/plugins-list.md)에서 확인할 수 있다. 
+
+중요한 점은 `semantic-release` 는 아래와 같은 순서로 진행되는데 만약, `.releaserc` 파일에서 플러그인 작성 시 순서가 맞지 않거나 서로 호환하는 플러그인이 없다면 제대로 동작되지 않을 수 있으므로 주의해야 한다.
+
+따라서 플러그인을 사용할 때 아래 순서를 참고하여 작성하여야 한다. 위의 플러그인 목록 링크에도 간단히 명시되어 있고, 각 플러그인의 GitHub 저장소에도 `README.md` 파일 상단에도 명시되어 있다. 
+
+* verifyConditions
+* analyzeCommits
+* verifyRelease
+* generateNotes
+* prepare
+* publish
+* addChannel
+* success
+* fail
+
+자세한 내용을 알고 싶다면 [이곳](https://semantic-release.gitbook.io/semantic-release/usage/plugins)을 참고한다.
+
+### 템플릿 모음
+
+#### 템플릿 1
 
 * 커밋 메시지에 따라 버전 관리
 * package.json 버전 동기화
@@ -123,7 +150,7 @@ CHANGELOG 파일을 작성하게 한다거나 특정 커밋 메시지일 경우 
 }
 ```
 
-#### 템플릿2
+#### 템플릿 2
 
 * 커밋 메시지에 따라 버전 관리
 * package.json 버전 동기화
@@ -165,7 +192,7 @@ CHANGELOG 파일을 작성하게 한다거나 특정 커밋 메시지일 경우 
 }
 ```
 
-#### 템플릿3
+#### 템플릿 3
 
 * 커밋 메시지에 따라 버전 관리
 * package.json 버전 동기화

@@ -1,3 +1,3 @@
 # semantic-release demo
 
-1. 
+https://github.com/semantic-release/semantic-release/blob/master/docs/usage/getting-started.md)https://github.com/semantic-release/semantic-release/blob/master/docs/usage/getting-started.md

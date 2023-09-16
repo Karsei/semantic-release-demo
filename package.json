@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/Karsei/semantic-release-demo#readme",
   "dependencies": {
+    "conventional-changelog-conventionalcommits": "^7.0.2",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.2.2"

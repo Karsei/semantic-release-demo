@@ -30,6 +30,12 @@
         "changelogFile": "CHANGELOG.md",
         "changelogTitle": "# 🚦 CHANGELOG"
       }
+    ],
+    [
+      "@semantic-release/npm",
+      {
+        "npmPublish": false
+      }
     ]
   ]
 }

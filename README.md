@@ -120,8 +120,61 @@ jobs:
 #### 템플릿 1
 
 * 커밋 메시지에 따라 버전 관리
+* 태그 배포
+
+> **의존성**
+> ```shell
+> $ npm install -D semantic-release @semantic-release/git
+> ```
+
+```json
+{
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator"
+  ]
+}
+```
+
+#### 템플릿 2
+
+* 커밋 메시지에 따라 버전 관리
+* 태그 배포
 * package.json 버전 동기화
-* release 상시 배포
+
+> **의존성**
+> ```shell
+> $ npm install -D semantic-release @semantic-release/git
+> ```
+
+```json
+{
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    [
+      "@semantic-release/npm",
+      {
+        "npmPublish": false
+      }
+    ],
+    [
+      "@semantic-release/git",
+      {
+        "assets": ["package.json"],
+        "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
+      }
+    ]
+  ]
+}
+```
+
+#### 템플릿 3
+
+* 커밋 메시지에 따라 버전 관리
+* 태그 배포
+* package.json 버전 동기화
+* release 배포
 
 > **의존성**
 > ```shell
@@ -151,11 +204,12 @@ jobs:
 }
 ```
 
-#### 템플릿 2
+#### 템플릿 4
 
 * 커밋 메시지에 따라 버전 관리
+* 태그 배포
 * package.json 버전 동기화
-* release 상시 배포
+* release 배포
 * CHANGELOG.md 파일 작성
 
 > **의존성**
@@ -193,11 +247,12 @@ jobs:
 }
 ```
 
-#### 템플릿 3
+#### 템플릿 5
 
 * 커밋 메시지에 따라 버전 관리
+* 태그 배포
 * package.json 버전 동기화
-* release 상시 배포
+* release 배포
 * CHANGELOG.md 파일 작성 & 템플릿 수정
 
 > **Note**

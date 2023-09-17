@@ -1,5 +1,18 @@
 # 🚦 CHANGELOG
 
+## [1.2.12](https://github.com/Karsei/semantic-release-demo/compare/v1.2.11...v1.2.12) (2023-09-17)
+
+
+### 🐛 Bug Fixes
+
+* commit test ([b40aebd](https://github.com/Karsei/semantic-release-demo/commit/b40aebd20cf74e75f3817fe860c804a5c6c34766))
+* **no-release:** commit test ([097b544](https://github.com/Karsei/semantic-release-demo/commit/097b5449a7638adfa473293d5823663a970d5cda))
+
+
+### 📝 Docs
+
+* update README.md ([69dd943](https://github.com/Karsei/semantic-release-demo/commit/69dd943c82a32aa0ed9b93f190c8332967ead816))
+
 ## [1.2.11](https://github.com/Karsei/semantic-release-demo/compare/v1.2.10...v1.2.11) (2023-09-17)
 
 

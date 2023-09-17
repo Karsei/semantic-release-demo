@@ -3,7 +3,6 @@
     [
       "@semantic-release/commit-analyzer",
       {
-        "preset": "conventionalcommits",
         "releaseRules": [
           {"scope": "no-release", "release": false},
           {"scope": "breaking", "release": "major"},
@@ -25,10 +24,7 @@
           {"type": "chore", "release": false},
           {"type": "ci", "release": false},
           {"type": "test", "release": false},
-        ],
-        "parserOpts": {
-          "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES"]
-        }
+        ]
       }
     ],
     [

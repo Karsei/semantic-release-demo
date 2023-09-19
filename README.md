@@ -361,6 +361,7 @@ $ npx husky install
 4. git hook 추가
 
 ```shell
+$ npm pkg set scripts.commitlint="commitlint --edit"
 $ npx husky add .husky/commit-msg 'npm run commitlint ${1}'
 ```
 

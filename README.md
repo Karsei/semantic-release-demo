@@ -456,6 +456,16 @@ module.exports = {
 
 **없다.** `semantic-release` 는 태그로 운영된다([참고](https://github.com/semantic-release/semantic-release/issues/964#issuecomment-537591277)).
 
+### 자동화 과정 이후에 버저닝 정보를 이용해서 다른 후속 조치가 가능한가?
+
+가능하다. [@semantic-release/exec](https://github.com/semantic-release/exec) 플러그인으로 할 수 있다.
+
+### `package.json` 말고 다른 파일의 버전을 바꾸는 것이 가능한가?
+
+가능하다. [semantic-release-replace-plugin](https://github.com/jpoehnelt/semantic-release-replace-plugin) 으로 가능하다.
+
+처음에는 구글 그룹에서 관리되었다가 `semantic-release` 로 분리되었다.
+
 # References
 
 * https://github.com/semantic-release/semantic-release/blob/master/docs/usage/getting-started.md

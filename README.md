@@ -95,39 +95,6 @@ jobs:
 
 [문서](https://semantic-release.gitbook.io/semantic-release/usage/configuration)에 따르면 `.releaserc`, `.releaserc.yaml` 등의 파일로 관리하는 방법, `package.json` 내의 `release` 키로 관리하는 방법, 명령어 인자로 넘겨주는 방법으로 3가지 방식을 지원하고 있다.
 
-### 몇 가지 궁금증 또는 실험이 필요한 사항들
-
-* 기존에 이용하던 버전과 동기화하려면 어떻게 해야 하는가?
-
-Release 를 이용해야 동기화가 된다. 단, 제목이 `v버전` (예: v1.2.3) 이어야 한다.
-
-문서를 더 찾아봐야 하겠지만 딱히 형식을 바꿀 수 있는 방법이 보이지 않는다.
-
-* 자동으로 태그가 생성될 때 태그의 포맷을 바꿀 수 있는가?
-
-가능하다. `semantic-release` 설정 속성 중에 `tagFormat` 으로 지정해줄 수 있다. 단, `${version}` 이 반드시 1회 들어가야 한다(만족하지 않으면 오류가 난다).
-
-기본적으로 `.releaserc` 와 같은 설정 파일을 통해서 지정할 수 있는데 동적으로도 가능하다. 이 경우 `release.config.js`(.cjs) 로 변경해주고 아래처럼 할 수 있다.
-
-> string literal 을 이용하여 감싸면 `version` 을 찾을 수 없다고 오류가 난다. `${version}` 을 이스케이프 처리하거나 따로 처리한다.
-
-```javascript
-const MODULE_NAME = process.env.MODULE_NAME;
-
-module.exports = {
-    "branches": ["master"],
-    "tagFormat": MODULE_NAME + "-${version}",
-    "plugins": [
-        "@semantic-release/commit-analyzer",
-        "@semantic-release/release-notes-generator",
-    ]
-}
-```
-
-* 태그를 배포하지 않고 release 만 한다던가 `CHANGELOG.MD` 파일을 방법은 없는가?
-
-없다. `semantic-release` 는 버저닝 정보를 이용하기 위해 release 정보를 이용한다고 말한다.
-
 ### 플러그인
 
 제공하는 플러그인 목록은 [여기](https://github.com/semantic-release/semantic-release/blob/master/docs/extending/plugins-list.md)에서 확인할 수 있다. 
@@ -455,6 +422,39 @@ $ npx husky add .husky/prepare-commit-msg '[ -z "${2-}" ] && exec < /dev/tty && 
   }
 }
 ```
+
+# 몇 가지 궁금증 또는 실험이 필요한 사항들
+
+### 기존에 이용하던 버전과 동기화하려면 어떻게 해야 하는가?
+
+Release 를 이용해야 동기화가 된다. 단, 제목이 `v버전` (예: v1.2.3) 이어야 한다.
+
+문서를 더 찾아봐야 하겠지만 딱히 형식을 바꿀 수 있는 방법이 보이지 않는다.
+
+### 자동으로 태그가 생성될 때 태그의 포맷을 바꿀 수 있는가?
+
+가능하다. `semantic-release` 설정 속성 중에 `tagFormat` 으로 지정해줄 수 있다. 단, `${version}` 이 반드시 1회 들어가야 한다(만족하지 않으면 오류가 난다).
+
+기본적으로 `.releaserc` 와 같은 설정 파일을 통해서 지정할 수 있는데 동적으로도 가능하다. 이 경우 `release.config.js`(.cjs) 로 변경해주고 아래처럼 할 수 있다.
+
+> string literal 을 이용하여 감싸면 `version` 을 찾을 수 없다고 오류가 난다. `${version}` 을 이스케이프 처리하거나 따로 처리한다.
+
+```javascript
+const MODULE_NAME = process.env.MODULE_NAME;
+
+module.exports = {
+    "branches": ["master"],
+    "tagFormat": MODULE_NAME + "-${version}",
+    "plugins": [
+        "@semantic-release/commit-analyzer",
+        "@semantic-release/release-notes-generator",
+    ]
+}
+```
+
+### 태그를 생성하지 않고 release 만 한다던가 `CHANGELOG.MD` 파일만 추가(변경)하는 방법은 없는가?
+
+**없다.** `semantic-release` 는 태그로 운영된다([참고](https://github.com/semantic-release/semantic-release/issues/964#issuecomment-537591277)).
 
 # References
 
